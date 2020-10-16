@@ -1,0 +1,248 @@
+<head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #2b2929;
+    }
+
+    canvas {
+      width: 1000px;
+    }
+
+    container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    img {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <container>
+    <canvas width="1000" height="750" id="canvas"></canvas>
+    <canvas width="1000" height="150" id="canvastwo"></canvas>
+  </container>
+  <img src="https://i.pinimg.com/originals/9d/bd/46/9dbd46abbcc932c413d661451942c369.png" id="grass"/>
+  <img src="https://static.planetminecraft.com/files/image/minecraft/texture-pack/2020/887/13327895-pack_m.jpg" id="water"/>
+  <img src="https://i.pinimg.com/originals/2a/b1/c3/2ab1c37cfdff720c6de2ddb07328f145.jpg" id="dirt"/>
+  <img src="https://i.pinimg.com/originals/52/ae/1d/52ae1d1a17f72c634f8b15549ed3959c.jpg" id="sand"/>
+  <img src="https://3.bp.blogspot.com/-MrS8JApd2bI/T6AuTzeWRdI/AAAAAAAABPM/g35wZjBApsk/s1600/minecraft_tree.jpg" id="tree"/>
+  <img src="https://www.printablee.com/postpic/2009/04/minecraft-steve-face_134798.jpg" id="steve"/>
+  <img src="https://i.pinimg.com/originals/d0/04/e1/d004e1a96b4dea46ba8b269a27bfd65e.png" id="brick"/>
+  <img src="https://tr.rbxcdn.com/6473dbb20816fe2a17dafd5d01438242/420/420/Decal/Png" id="wood"/>
+  <img src="https://tr.rbxcdn.com/75736df90911031da74fb9d65f4abc0d/420/420/Decal/Png" id="glass"/>
+  <script>
+    let grass = document.getElementById('grass');
+    let water = document.getElementById('water');
+    let dirt = document.getElementById('dirt');
+    let sand = document.getElementById('sand');
+    let tree = document.getElementById('tree');
+    let brick = document.getElementById('brick');
+    let wood = document.getElementById('wood');
+    let glass = document.getElementById('glass');
+    let steve = document.getElementById('steve');
+    let ctx = document.getElementById('canvas').getContext('2d');
+    let ctx2 = document.getElementById('canvastwo').getContext('2d');
+    ctx2.font = "50px Arial";
+    let randomBuffer = 'd';
+    let map = [
+      [['g','p'],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']],
+      [['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']],
+      [['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']],
+      [['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']],
+      [['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']],
+      [['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']],
+      [['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']],
+      [['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']],
+      [['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']],
+      [['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']],
+      [['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']],
+      [['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']],
+      [['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']],
+      [['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']],
+      [['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' '],['g',' ']]
+    ];
+    let dir = ' ';
+    let coords = [0, 0];
+    let inventory = [0, 0, 0, 0, 0, 0, 0, 0];
+    for (let i = 0; i < 15; i++) {
+        for (let j = 0; j < 20; j++) {
+          randomBuffer = Math.round(Math.random() * (5 - 1) + 1);
+          if (randomBuffer == 1) {
+              randomBuffer = 'd';
+          } else if (randomBuffer == 2) {
+              randomBuffer = 'g';     
+          } else if (randomBuffer == 3) {
+              randomBuffer = 's';       
+          } else if (randomBuffer == 4) {
+              randomBuffer = 'w';       
+          } else if (randomBuffer == 5) {
+              randomBuffer = 't';       
+          }
+          map[i][j][0] = randomBuffer;
+        }
+    }
+    function mapDisplay() {
+      for (let i = 0; i < 15; i++) {
+        for (let j = 0; j < 20; j++) {
+          if (map[i][j][0] == 'g') {
+              ctx.drawImage(grass, j * 50, i * 50, 50, 50);
+          } else if (map[i][j][0] == 'd') {
+              ctx.drawImage(dirt, j * 50, i * 50, 50, 50);       
+          } else if (map[i][j][0] == 's') {
+              ctx.drawImage(sand, j * 50, i * 50, 50, 50);        
+          } else if (map[i][j][0] == 'w') {
+              ctx.drawImage(water, j * 50, i * 50, 50, 50);       
+          } else if (map[i][j][0] == 't') {
+              ctx.drawImage(tree, j * 50, i * 50, 50, 50);       
+          } else if (map[i][j][0] == 'b') {
+              ctx.drawImage(brick, j * 50, i * 50, 50, 50);       
+          } else if (map[i][j][0] == 'wd') {
+              ctx.drawImage(wood, j * 50, i * 50, 50, 50);       
+          } else if (map[i][j][0] == 'gs') {
+              ctx.drawImage(dirt, j * 50, i * 50, 50, 50);      
+              ctx.drawImage(glass, j * 50, i * 50, 50, 50);       
+          }
+          if (map[i][j][1] == 'p') {
+              ctx.drawImage(steve, j * 50 + 7.5, i * 50 + 7.5, 35, 35);
+              coords = [i, j];
+          }
+        }
+      }
+    }
+    function movePlayer() {
+      switch (dir) {
+        case 'W':
+            map[coords[0]][coords[1]][1] = ' ';
+            map[coords[0]][coords[1] - 1][1] = 'p';
+            dir = ' ';
+          break;
+        case 'E':
+            map[coords[0]][coords[1]][1] = ' ';
+            map[coords[0]][coords[1] + 1][1] = 'p';
+            dir = ' ';
+          break;
+        case 'N':
+            map[coords[0]][coords[1]][1] = ' ';
+            map[coords[0] - 1][coords[1]][1] = 'p';
+            dir = ' ';
+          break;
+        case 'S':
+            map[coords[0]][coords[1]][1] = ' ';
+            map[coords[0] + 1][coords[1]][1] = 'p';
+            dir = ' ';
+      }
+    }
+    function inventoryDisplay() {
+      ctx2.fillStyle = '#616161';
+      ctx2.fillRect(0, 0, 1000, 150);
+      ctx2.drawImage(dirt, 12.5, 25, 100, 100);
+      ctx2.drawImage(grass, 137.5, 25, 100, 100);
+      ctx2.drawImage(sand, 262.5, 25, 100, 100);
+      ctx2.drawImage(water, 387.5, 25, 100, 100);
+      ctx2.drawImage(tree, 512.5, 25, 100, 100);
+      ctx2.drawImage(brick, 637.5, 25, 100, 100);
+      ctx2.drawImage(wood, 762.5, 25, 100, 100);
+      ctx2.drawImage(glass, 887.5, 25, 100, 100);
+      ctx2.fillStyle = 'white';
+      ctx2.fillText(inventory[0], 0 * 125 + 47, 95);
+      ctx2.fillText(inventory[1], 1 * 125 + 47, 95);
+      ctx2.fillText(inventory[2], 2 * 125 + 47, 95);
+      ctx2.fillText(inventory[3], 3 * 125 + 47, 95);
+      ctx2.fillText(inventory[4], 4 * 125 + 47, 95);
+      ctx2.fillText(inventory[5], 5 * 125 + 47, 95);
+      ctx2.fillText(inventory[6], 6 * 125 + 47, 95);
+      ctx2.fillText(inventory[7], 7 * 125 + 47, 95);
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.which == 38 && coords[0] - 1 != -1) {
+          dir = 'N';
+      } else if (e.which == 40 && coords[0] + 1 != 15) {
+          dir = 'S';       
+      } else if (e.which == 37 && coords[1] - 1 != -1) {
+          dir = 'W'; 
+      } else if (e.which == 39 && coords[1] + 1 != 20) {
+          dir = 'E';       
+      } else if (e.which == 32) {
+          if (map[coords[0]][coords[1]][0] == 'd' && inventory[0] < 32) {
+              inventory[0]++;
+              map[coords[0]][coords[1]][0] = 'd';
+          } else if (map[coords[0]][coords[1]][0] == 'g' && inventory[1] < 32) {
+              inventory[1]++;      
+              map[coords[0]][coords[1]][0] = 'd';
+          } else if (map[coords[0]][coords[1]][0] == 's' && inventory[2] < 32) {
+              inventory[2]++;      
+              map[coords[0]][coords[1]][0] = 'd';
+          } else if (map[coords[0]][coords[1]][0] == 'w' && inventory[3] < 32) {
+              inventory[3]++;       
+              map[coords[0]][coords[1]][0] = 'd';
+          } else if (map[coords[0]][coords[1]][0] == 't' && inventory[4] < 32) {
+              inventory[4]++;        
+              map[coords[0]][coords[1]][0] = 'd';
+          } else if (map[coords[0]][coords[1]][0] == 'b' && inventory[5] < 32) {
+              inventory[5]++;        
+              map[coords[0]][coords[1]][0] = 'd';
+          } else if (map[coords[0]][coords[1]][0] == 'wd' && inventory[6] < 32) {
+              inventory[6]++;        
+              map[coords[0]][coords[1]][0] = 'd';
+          } else if (map[coords[0]][coords[1]][0] == 'gs' && inventory[7] < 32) {
+              inventory[7]++;       
+              map[coords[0]][coords[1]][0] = 'd';
+          } 
+      } else if (e.which == 49 && inventory[0] > 0) {
+          map[coords[0]][coords[1]][0] = 'd';
+          inventory[0]--;
+      } else if (e.which == 50 && inventory[1] > 0) {
+          map[coords[0]][coords[1]][0] = 'g';
+          inventory[1]--;
+      } else if (e.which == 51 && inventory[2] > 0) {
+          map[coords[0]][coords[1]][0] = 's';
+          inventory[2]--;
+      } else if (e.which == 52 && inventory[3] > 0) {
+          map[coords[0]][coords[1]][0] = 'w';
+          inventory[3]--;
+      } else if (e.which == 53 && inventory[4] > 0) {
+          map[coords[0]][coords[1]][0] = 't';
+          inventory[4]--;
+      } else if (e.which == 54 && inventory[5] > 0) {
+          map[coords[0]][coords[1]][0] = 'b';
+          inventory[5]--;
+      } else if (e.which == 55 && inventory[6] > 0) {
+          map[coords[0]][coords[1]][0] = 'wd';
+          inventory[6]--;
+      } else if (e.which == 56 && inventory[7] > 0) {
+          map[coords[0]][coords[1]][0] = 'gs';
+          inventory[7]--;
+      } else if (e.which == 66 && inventory[0] > 1 && inventory[3] > 0) {
+          inventory[0] -= 2;
+          inventory[3]--;
+          inventory[5]++;
+      } else if (e.which == 87 && inventory[4] > 0) {
+          inventory[4]--;
+          inventory[6] += 4;
+      } else if (e.which == 71 && inventory[2] > 2) {
+          inventory[2] -= 3;
+          inventory[7]++;
+      }
+    });
+    function gameLoop() {
+      ctx.clearRect(0, 0, 1000, 750);
+      ctx2.clearRect(0, 0, 1000, 250);
+      movePlayer();
+      mapDisplay();
+      inventoryDisplay();
+    }
+    setInterval(gameLoop, 1000/60);
+  </script>
+</body>
